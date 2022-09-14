@@ -1,4 +1,4 @@
-import Data from "./Data";
+import Data from "./components/data/Data";
 
 function App() {
   return (

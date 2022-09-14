@@ -3,7 +3,9 @@ import styled from "styled-components";
 const TableStyles = styled.div`
   overflow-x: auto;
   background-color: white;
-  padding: 20px;
+  margin: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 10px #9ae1e3;
   table {
   }
   thead {
@@ -24,7 +26,7 @@ const TableStyles = styled.div`
     color: white;
   }
   td {
-    padding: 15px 30px;
+    padding: 10px 20px;
     border: 1px solid #ccc;
   }
   tbody {

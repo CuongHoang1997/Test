@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import myJson from "./data.json";
-import Table from "./Table";
+import Table from "../table/Table";
 
 const Data = () => {
   const data = myJson.data.advisorProfileCollection.items;
@@ -45,7 +45,7 @@ const Data = () => {
     <div>
       <div className="flex justify-around items-center my-10">
         <button
-          className="w-[200px] py-3 border bg-green-500 text-white text-2xl font-bold  "
+          className="w-[200px] py-3 rounded-lg shadow-gray-500 shadow-lg transition duration-1000 hover:scale-110 bg-green-500 text-white text-2xl font-bold  "
           onClick={() => setView(!view)}
         >
           {view ? "Horizontial" : "Vertical"}
@@ -53,12 +53,12 @@ const Data = () => {
         <input
           type="text"
           name="search"
-          className=" px-5 border-2 border-gray-500 outline-none rounded-lg h-16"
+          className=" px-5 border-2 border-gray-500 outline-none rounded-lg h-16 shadow-gray-500 shadow-lg "
           placeholder="Type here to search..."
           onChange={handleFilter}
         />
       </div>
-      {!view ? (
+      {view ? (
         <Table className="w-full">
           <thead>
             <tr>
@@ -83,14 +83,14 @@ const Data = () => {
                     <td>
                       {item.avatarUrl && (
                         <img
-                          className="w-20 h-20"
+                          className="w-20 h-20 object-cover"
                           src={item.avatarUrl?.url}
                           alt=""
                         />
                       )}
                     </td>
                     <td>
-                      {item.categoriesCollection?.items &&
+                      {item.categoriesCollection.items.length > 0 &&
                         item.categoriesCollection?.items.map((item, index) => (
                           <p key={index}>{item.displayName}</p>
                         ))}
@@ -107,7 +107,16 @@ const Data = () => {
                           <p key={index}>{item.displayName}</p>
                         ))}
                     </td>
-                    <td>{item.status}</td>
+                    <td>
+                      {" "}
+                      {item?.status == "Online" ? (
+                        <span className="text-green-500 drop-shadow-lg">
+                          Online
+                        </span>
+                      ) : (
+                        <p className="text-gray-700 drop-shadow-lg">Offline</p>
+                      )}
+                    </td>
                   </tr>
                 ))
               : dataSource.map((item, index) => (
@@ -143,7 +152,15 @@ const Data = () => {
                           <p key={index}>{item.displayName}</p>
                         ))}
                     </td>
-                    <td>{item?.status}</td>
+                    <td>
+                      {item?.status == "Online" ? (
+                        <span className="text-green-500 drop-shadow-lg">
+                          Online
+                        </span>
+                      ) : (
+                        <p className="text-gray-700 drop-shadow-lg">Offline</p>
+                      )}
+                    </td>
                   </tr>
                 ))}
           </tbody>
@@ -271,10 +288,28 @@ const Data = () => {
               <th>Status</th>
               {value?.length > 0
                 ? tableFilter.map((item, index) => (
-                    <td key={index}>{item.status}</td>
+                    <td key={index}>
+                      {" "}
+                      {item?.status == "Online" ? (
+                        <span className="text-green-500 drop-shadow-lg">
+                          Online
+                        </span>
+                      ) : (
+                        <p className="text-gray-700 drop-shadow-lg">Offline</p>
+                      )}
+                    </td>
                   ))
                 : dataSource.map((item, index) => (
-                    <td key={index}>{item.status}</td>
+                    <td key={index}>
+                      {" "}
+                      {item?.status == "Online" ? (
+                        <span className="text-green-500 drop-shadow-lg">
+                          Online
+                        </span>
+                      ) : (
+                        <p className="text-gray-700 drop-shadow-lg">Offline</p>
+                      )}
+                    </td>
                   ))}
             </tr>
           </tbody>
